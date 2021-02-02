@@ -30,9 +30,15 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+
     "& > *": {
       margin: theme.spacing(0),
     },
+  },
+  paperRoot: {
+    flexGrow: 1,
+    flexWrap: "wrap",
+    overflow: "hidden",
   },
   menuItems: {
     color: theme.palette.text.primary,
@@ -79,16 +85,16 @@ const MenuItems = (props) => {
       {props.menuItems.length !== 0 ? (
         <Button className={classes.fullHeight} ref={anchorRef} aria-controls={open ? "menu-list-grow" : undefined} aria-haspopup="true">
           <Typography className={classes.navLink} color="primary" variant="h6">
-            <Grid item container justify="center" alignItems="center">
+            <Grid container justify="center" alignItems="center">
               <Grid item>{props.title}</Grid> <Grid item>{props.menuItems.length !== 0 && <ExpandMoreIcon />}</Grid>
             </Grid>
           </Typography>
         </Button>
       ) : (
-        <Link to={props.URL} style={{ textDecoration: "none" }}>
+        <Link to={props.URL}>
           <Button className={classes.fullHeight} ref={anchorRef} aria-controls={open ? "menu-list-grow" : undefined} aria-haspopup="true">
             <Typography className={classes.navLink} color="primary" variant="h6">
-              <Grid item container justify="center" alignItems="center">
+              <Grid container justify="center" alignItems="center">
                 <Grid item>{props.title}</Grid> <Grid item>{props.menuItems.length !== 0 && <ExpandMoreIcon />}</Grid>
               </Grid>
             </Typography>
@@ -104,12 +110,12 @@ const MenuItems = (props) => {
             style={{ transformOrigin: placement === "bottom" ? "center top" : "center bottom" }}
             {...(open ? { timeout: 1000 } : {})}
           >
-            <Paper elevation={10}>
+            <Paper className={classes.paperRoot} elevation={10}>
               {props.menuItems.length !== 0 &&
                 props.menuItems.map((item, index) => {
                   return (
-                    <Link to={item.URL} style={{ textDecoration: "none" }}>
-                      <MenuItem className={classes.menuItems} key={index} onClick={handleClose}>
+                    <Link key={index} to={item.URL}>
+                      <MenuItem className={classes.menuItems} onClick={handleClose}>
                         <Typography className={classes.menuItem} variant="h6">
                           {item.menuItem}
                         </Typography>

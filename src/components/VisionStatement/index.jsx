@@ -15,7 +15,7 @@ import { faAward, faUsers, faCoffee } from "@fortawesome/free-solid-svg-icons";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    padding: theme.spacing(5, 0, 0, 5),
+    padding: theme.spacing(5, 0, 5, 5),
   },
   title: {
     fontWeight: 600,
@@ -36,8 +36,8 @@ const VisionStatement = () => {
   const classes = useStyles();
 
   return (
-    <Paper className={classes.root}>
-      <Grid container xs={12} direction="column" justify="center" alignItems="center" spacing={3}>
+    <Paper className={classes.root} elevation={0}>
+      <Grid container item xs={12} direction="column" justify="center" alignItems="center" spacing={5}>
         <Grid item xs={12}>
           <Typography className={classes.title} variant="h4" color="primary" align="center">
             Relevant. Edifying. Visionary. Educational.

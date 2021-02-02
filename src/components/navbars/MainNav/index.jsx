@@ -76,14 +76,14 @@ const MainNav = (props) => {
 
   return (
     <div className={classes.root}>
-      <ElevationScroll {...props}>
+      <ElevationScroll className={classes.appBarRoot} {...props}>
         <AppBar position="fixed">
           <TopNav collapse={!topNavTrigger} />
           <Toolbar className={classes.toolbar} disableGutters>
             <Paper className={classes.paperRoot} square>
-              <Grid container xs={12} justify="center" spacing={0}>
+              <Grid container justify="center" spacing={0}>
                 <Grid container item xs={11} justify="center">
-                  <Link exact to="/" style={{ textDecoration: "none" }} className={classes.link}>
+                  <Link to="/" className={classes.link}>
                     <img className={classes.img} src={Logo} alt="logo" />
                   </Link>
                   <Hidden mdDown>

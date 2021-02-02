@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
-import { store, persistor } from "./redux/createStore";
+import store, { persistor } from "./redux/createStore";
 import { PersistGate } from "redux-persist/es/integration/react";
 import reportWebVitals from "./reportWebVitals";
 

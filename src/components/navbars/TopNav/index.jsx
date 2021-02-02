@@ -153,17 +153,21 @@ const TopNav = (props) => {
                   />
                 </FormGroup>
               </Grid>
-              {loggedIn && (
-                <Grid item xs={12}>
-                  Welcome {currentUser.displayName}
-                </Grid>
-              )}
+              <Hidden only={["xs", "sm"]}>
+                {loggedIn && (
+                  <Grid item xs={12}>
+                    Welcome {currentUser.displayName}
+                  </Grid>
+                )}
+              </Hidden>
             </Grid>
             <Grid container item xs={4} alignItems="center">
               <IconButton edge="end" className={classes.menuButton} aria-label="shopping cart">
                 <ShoppingCartIcon className={classes.shoppingCart} fontSize="large" />
               </IconButton>
-              <Switch checked={darkMode} onChange={handleDarkModeChange} name="darkMode" inputProps={{ "aria-label": "set dark mode" }} />
+              <Hidden only={["xs", "sm", "md"]}>
+                <Switch checked={darkMode} onChange={handleDarkModeChange} name="darkMode" inputProps={{ "aria-label": "set dark mode" }} />
+              </Hidden>
             </Grid>
           </Grid>
         </Toolbar>

@@ -5,6 +5,7 @@ import React from "react";
 // components
 import Slider from "../../components/Slider";
 import VisionStatement from "../../components/VisionStatement";
+import HomeMembership from "../../components/HomeMembership";
 
 // Data
 import { HomeSliderData } from "../../utils/homeSlider";
@@ -14,6 +15,7 @@ const HomePage = () => {
     <div>
       <Slider data={HomeSliderData} />
       <VisionStatement />
+      <HomeMembership />
     </div>
   );
 };

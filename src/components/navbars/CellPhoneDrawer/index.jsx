@@ -66,8 +66,8 @@ const CellPhoneDrawer = () => {
     <div className={clsx(classes.list, classes.fullList)} role="presentation" onKeyDown={toggleDrawer(anchor, false)}>
       <List>
         {navLinksData.map((item, index) => (
-          <>
-            <Accordion key={index}>
+          <div key={index}>
+            <Accordion>
               {item.menuItems.length !== 0 ? (
                 <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
                   <Typography className={classes.navLink} color="primary" variant="h6">
@@ -87,8 +87,8 @@ const CellPhoneDrawer = () => {
               {item.menuItems.length !== 0 &&
                 item.menuItems.map((item, index) => {
                   return (
-                    <Link to={item.URL} style={{ textDecoration: "none" }}>
-                      <MenuItem className={classes.menuItems} key={index} onClick={toggleDrawer(anchor, false)}>
+                    <Link key={index} to={item.URL} style={{ textDecoration: "none" }}>
+                      <MenuItem className={classes.menuItems} onClick={toggleDrawer(anchor, false)}>
                         <Typography className={classes.menuItem} variant="subtitle2">
                           {item.menuItem}
                         </Typography>
@@ -97,7 +97,7 @@ const CellPhoneDrawer = () => {
                   );
                 })}
             </Accordion>
-          </>
+          </div>
         ))}
       </List>
     </div>

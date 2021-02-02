@@ -14,11 +14,12 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     height: 750,
+    width: "100%",
   },
   image: {
     objectFit: "cover",
     height: "100%",
-    width: "100vw",
+    width: "100%",
   },
   gridContainer: {
     position: "absolute",
@@ -56,7 +57,7 @@ const Item = (props) => {
   return (
     <Paper className={classes.root}>
       <img className={classes.image} src={props.item.imgSrc} alt={props.item.title} />
-      <Grid className={classes.gridContainer} xs={12} container direction="column">
+      <Grid className={classes.gridContainer} xs={12} container item direction="column">
         <Grid item>
           <Typography className={classes.title} variant="h2">
             {props.item.title}
