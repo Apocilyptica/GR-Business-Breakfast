@@ -20,6 +20,7 @@ import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 
 // Components
 import MainNav from "./components/navbars/MainNav";
+import Footer from "./components/Footer";
 // import SignUp from "./components/SignUp";
 
 // High Order Components
@@ -44,10 +45,11 @@ import "./default.scss";
 // ---------------------------Code Below ---------------------------- //
 
 const useStyles = makeStyles((theme) => ({
-  root: {
+  fab: {
     position: "fixed",
     bottom: theme.spacing(2),
     right: theme.spacing(2),
+    zIndex: 2,
   },
 }));
 
@@ -82,6 +84,7 @@ const mapState = ({ style }) => ({
 });
 
 function App(props) {
+  const classes = useStyles();
   const dispatch = useDispatch();
   const { darkMode } = useSelector(mapState);
 
@@ -147,11 +150,12 @@ function App(props) {
           <Route path="/contact" render={() => <Contact />} />
         </Switch>
         <ScrollTop {...props}>
-          <Fab color="secondary" size="small" aria-label="scroll back to top">
+          <Fab className={classes.fab} color="secondary" size="small" aria-label="scroll back to top">
             <KeyboardArrowUpIcon />
           </Fab>
         </ScrollTop>
       </Grid>
+      <Footer />
     </ThemeProvider>
   );
 }

@@ -9,13 +9,14 @@ import HomeMembership from "../../components/HomeMembership";
 
 // Data
 import { HomeSliderData } from "../../utils/homeSlider";
+import { ButtonStyles } from "../../utils/buttonStyles";
 
 const HomePage = () => {
   return (
     <div>
       <Slider data={HomeSliderData} />
       <VisionStatement />
-      <HomeMembership />
+      <HomeMembership styles={ButtonStyles} />
     </div>
   );
 };

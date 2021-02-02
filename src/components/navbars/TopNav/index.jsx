@@ -96,7 +96,7 @@ const TopNav = (props) => {
           {socialLinksData.map((link, index) => {
             return (
               <IconButton key={index} edge="start" className={classes.menuButton} aria-label={link.label}>
-                <SocialLinks href={link.URL} target="_blank" className={classes.iconButton} icon={link.icon} color={link.color} />
+                <SocialLinks href={link.URL} target="_blank" className={classes.iconButton} icon={link.iconUI} color={link.color} />
               </IconButton>
             );
           })}

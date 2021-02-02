@@ -10,6 +10,7 @@ export const HomeSliderData = [
     buttonName: "Become A Member",
     buttonStyle: ButtonStyles.secondary,
     imgSrc: ImageA,
+    URL: "/membership",
   },
   {
     title: "Showcasing Top Experts",
@@ -17,5 +18,6 @@ export const HomeSliderData = [
     buttonName: "Check Out Upcoming Events",
     buttonStyle: ButtonStyles.secondary,
     imgSrc: ImageB,
+    URL: "/upcomingevents",
   },
 ];

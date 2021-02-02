@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 // Material-ui
 import Carousel from "react-material-ui-carousel";
@@ -68,9 +69,11 @@ const Item = (props) => {
         </Grid>
         <Grid item>
           <Button className={classes.button}>
-            <Typography className={classes.buttonTitle} variant="h5">
-              {props.item.buttonName}
-            </Typography>
+            <NavLink to={props.item.URL}>
+              <Typography className={classes.buttonTitle} variant="h5">
+                {props.item.buttonName}
+              </Typography>
+            </NavLink>
           </Button>
         </Grid>
       </Grid>
