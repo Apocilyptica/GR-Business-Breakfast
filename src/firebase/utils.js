@@ -1,12 +1,15 @@
 import firebase from "firebase/app";
-import "firebase/firestore";
+import "@firebase/firestore"; // 👈 Don't forget this!
+import ReduxSagaFirebase from "redux-saga-firebase";
 import "firebase/auth";
 import { firebaseConfig } from "./config";
+import "firebase/storage";
 
-firebase.initializeApp(firebaseConfig);
+const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
+export const storage = firebase.storage();
 
 export const GoogleProvider = new firebase.auth.GoogleAuthProvider();
 GoogleProvider.setCustomParameters({ prompt: "select_account" });
@@ -46,3 +49,5 @@ export const getCurrentUser = () => {
     }, reject);
   });
 };
+
+export const rsf = new ReduxSagaFirebase(firebaseApp);

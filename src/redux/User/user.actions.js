@@ -1,5 +1,10 @@
 import userTypes from "./user.types";
 
+export const addProfilePictureStart = (file) => ({
+  type: userTypes.ADD_PROFILE_PITCURE_START,
+  payload: file,
+});
+
 export const emailSignInStart = (userCredentials) => ({
   type: userTypes.EMAIL_SIGN_IN_START,
   payload: userCredentials,

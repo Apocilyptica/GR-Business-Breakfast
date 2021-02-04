@@ -1,8 +1,9 @@
-import { all, call } from "redux-saga/effects";
+import { all, fork } from "redux-saga/effects";
 
 // Sagas
 import userSagas from "./User/user.sagas";
+import storageSagas from "./Storage/storage.sagas";
 
 export default function* rootSaga() {
-  yield all([call(userSagas)]);
+  yield all([fork(userSagas), fork(storageSagas)]);
 }

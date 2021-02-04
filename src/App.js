@@ -19,13 +19,14 @@ import { createMuiTheme, makeStyles, ThemeProvider } from "@material-ui/core/sty
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 
 // Components
-import MainNav from "./components/navbars/MainNav";
-import Footer from "./components/Footer";
-// import SignUp from "./components/SignUp";
+
+import UserProfile from "./pages/UserProfile";
 
 // High Order Components
 
 // layouts
+import MainLayout from "./layouts/MainLayout";
+import UserProfileLayout from "./layouts/UserProfileLayout";
 
 // Pages
 import Homepage from "./pages/HomePage";
@@ -88,8 +89,6 @@ function App(props) {
   const dispatch = useDispatch();
   const { darkMode } = useSelector(mapState);
 
-  console.log(darkMode);
-
   const themeDark = createMuiTheme({
     palette: {
       primary: {
@@ -135,19 +134,97 @@ function App(props) {
   return (
     <ThemeProvider theme={darkMode ? themeDark : themeLight}>
       <Grid container direction="column">
-        <MainNav />
         <Toolbar id="back-to-top-anchor" />
         <Switch>
-          <Route exact path="/" render={() => <Homepage />} />
-          <Route path="/login" render={() => <Login />} />
-          <Route path="/upcomingevents" render={() => <UpComingEvents />} />
-          <Route path="/pastevents" render={() => <PastEvents />} />
-          <Route path="/membership" render={() => <Membership />} />
-          <Route path="/ourmembers" render={() => <OurMembers />} />
-          <Route path="/about" render={() => <About />} />
-          <Route path="/sponsors" render={() => <Sponsors />} />
-          <Route path="/testimonials" render={() => <Testimonials />} />
-          <Route path="/contact" render={() => <Contact />} />
+          <Route
+            exact
+            path="/"
+            render={() => (
+              <MainLayout>
+                <Homepage />
+              </MainLayout>
+            )}
+          />
+          <Route
+            path="/login"
+            render={() => (
+              <MainLayout>
+                <Login />
+              </MainLayout>
+            )}
+          />
+          <Route
+            path="/upcomingevents"
+            render={() => (
+              <MainLayout>
+                <UpComingEvents />
+              </MainLayout>
+            )}
+          />
+          <Route
+            path="/pastevents"
+            render={() => (
+              <MainLayout>
+                <PastEvents />
+              </MainLayout>
+            )}
+          />
+          <Route
+            path="/membership"
+            render={() => (
+              <MainLayout>
+                <Membership />
+              </MainLayout>
+            )}
+          />
+          <Route
+            path="/ourmembers"
+            render={() => (
+              <MainLayout>
+                <OurMembers />
+              </MainLayout>
+            )}
+          />
+          <Route
+            path="/about"
+            render={() => (
+              <MainLayout>
+                <About />
+              </MainLayout>
+            )}
+          />
+          <Route
+            path="/sponsors"
+            render={() => (
+              <MainLayout>
+                <Sponsors />
+              </MainLayout>
+            )}
+          />
+          <Route
+            path="/testimonials"
+            render={() => (
+              <MainLayout>
+                <Testimonials />
+              </MainLayout>
+            )}
+          />
+          <Route
+            path="/contact"
+            render={() => (
+              <MainLayout>
+                <Contact />
+              </MainLayout>
+            )}
+          />
+          <Route
+            path="/userprofile"
+            render={() => (
+              <UserProfileLayout>
+                <UserProfile />
+              </UserProfileLayout>
+            )}
+          />
         </Switch>
         <ScrollTop {...props}>
           <Fab className={classes.fab} color="secondary" size="small" aria-label="scroll back to top">
@@ -155,7 +232,6 @@ function App(props) {
           </Fab>
         </ScrollTop>
       </Grid>
-      <Footer />
     </ThemeProvider>
   );
 }
