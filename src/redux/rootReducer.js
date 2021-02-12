@@ -5,12 +5,12 @@ import { combineReducers } from "redux";
 // Reducers
 import userReducer from "./User/user.reducers";
 import styleReducer from "./Styles/styles.reducers";
-import storageReducer from "./Storage/storage.reducers";
+import userdataReducer from "./UserData/userdata.reducers";
 
 export const rootReducer = combineReducers({
   user: userReducer,
   style: styleReducer,
-  storage: storageReducer,
+  userdata: userdataReducer,
 });
 
 // const configStorage = {

@@ -23,6 +23,8 @@ import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import UserProfile from "./pages/UserProfile";
 
 // High Order Components
+import WithAuth from "./hoc/withAuth";
+import WithAdminAuth from "./hoc/withAdminAuth";
 
 // layouts
 import MainLayout from "./layouts/MainLayout";
@@ -39,6 +41,8 @@ import PastEvents from "./pages/PastEvents";
 import Sponsors from "./pages/Sponsors";
 import Testimonials from "./pages/Testimonials";
 import UpComingEvents from "./pages/UpComingEvents";
+import Registration from "./pages/Registration";
+import UserAccount from "./pages/UserAccount";
 
 // Default SCSS
 import "./default.scss";
@@ -154,6 +158,14 @@ function App(props) {
             )}
           />
           <Route
+            path="/registration"
+            render={() => (
+              <MainLayout>
+                <Registration />
+              </MainLayout>
+            )}
+          />
+          <Route
             path="/upcomingevents"
             render={() => (
               <MainLayout>
@@ -218,11 +230,23 @@ function App(props) {
             )}
           />
           <Route
-            path="/userprofile"
-            render={() => (
-              <UserProfileLayout>
-                <UserProfile />
-              </UserProfileLayout>
+            path="/userprofile/:slug"
+            render={(props) => (
+              <WithAuth>
+                <UserProfileLayout>
+                  <UserProfile />
+                </UserProfileLayout>
+              </WithAuth>
+            )}
+          />
+          <Route
+            path="/useraccount/:slug"
+            render={(props) => (
+              <WithAuth>
+                <UserProfileLayout>
+                  <UserAccount />
+                </UserProfileLayout>
+              </WithAuth>
             )}
           />
         </Switch>

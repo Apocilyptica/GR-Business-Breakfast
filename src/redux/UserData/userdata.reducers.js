@@ -1,4 +1,4 @@
-import storageTypes from "./storage.types";
+import userdataTypes from "./userdata.types";
 
 const initialState = {
   file: null,
@@ -6,20 +6,20 @@ const initialState = {
   url: null,
 };
 
-const storageReducer = (state = initialState, action = {}) => {
+const userdataReducer = (state = initialState, action = {}) => {
   switch (action.type) {
-    case storageTypes.SET_FILE:
+    case userdataTypes.SET_FILE:
       return {
         ...state,
         file: action.file,
       };
-    case storageTypes.SET_FILE_URL:
+    case userdataTypes.SET_FILE_URL:
       return {
         ...state,
         loading: false,
         url: action.payload,
       };
-    case storageTypes.SEND_FILE:
+    case userdataTypes.SEND_FILE:
       return {
         ...state,
         loading: true,
@@ -29,4 +29,4 @@ const storageReducer = (state = initialState, action = {}) => {
   }
 };
 
-export default storageReducer;
+export default userdataReducer;

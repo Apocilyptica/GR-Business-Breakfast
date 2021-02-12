@@ -38,6 +38,15 @@ export const handleUserProfile = async ({ userAuth, additionalData }) => {
       // console.log(err);
     }
   }
+
+  return userRef;
+};
+
+export const getCurrentUserRef = async ({ userAuth }) => {
+  if (!userAuth) return;
+  const { uid } = userAuth;
+
+  const userRef = firestore.doc(`users/${uid}`);
   return userRef;
 };
 

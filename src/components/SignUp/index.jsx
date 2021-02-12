@@ -103,6 +103,7 @@ const SignUp = (props) => {
     const password = values.password;
     const displayName = values.displayName;
     const confirmPassword = values.confirmPassword;
+    const photoURL = "https://via.placeholder.com/500.png?text=Upload+Your+Profile+Picture";
     event.preventDefault();
     dispatch(
       signUpUserStart({
@@ -110,6 +111,7 @@ const SignUp = (props) => {
         email,
         password,
         confirmPassword,
+        photoURL,
       })
     );
   };

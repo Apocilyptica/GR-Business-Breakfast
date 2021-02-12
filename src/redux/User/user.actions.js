@@ -1,5 +1,10 @@
 import userTypes from "./user.types";
 
+export const updateUserProfile = (dataToChange, userData) => ({
+  type: userTypes.UPDATE_USER_PROFILE,
+  payload: dataToChange,
+});
+
 export const addProfilePictureStart = (file) => ({
   type: userTypes.ADD_PROFILE_PITCURE_START,
   payload: file,

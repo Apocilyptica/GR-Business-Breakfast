@@ -57,7 +57,7 @@ const Footer = () => {
       <Grid container item className={classes.watermarkBanner} xs={12} justify="center">
         <Grid item xs={12} md={6} lg={3}>
           <Typography className={classes.watermarkBannerText} variant="body2" align="center">
-            Site Crafted By James Jager
+            Site Crafted By James W Jager
           </Typography>
         </Grid>
         <Grid item xs={12} md={6} lg={3}>

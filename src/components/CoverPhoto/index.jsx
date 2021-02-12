@@ -1,132 +1,158 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 // Redux
-import { sendFile, setFile, syncFileURL } from "../../redux/Storage/storage.actions";
+import { sendFile, setFile } from "../../redux/UserData/userdata.actions";
 
 // Material-ui
 import Grid from "@material-ui/core/grid";
-import Paper from "@material-ui/core/paper";
 import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
 import MenuItem from "@material-ui/core/MenuItem";
 import { DropzoneDialog } from "material-ui-dropzone";
+import Paper from "@material-ui/core/Paper";
 
 // Material-ui Styles
 import { makeStyles } from "@material-ui/core/styles";
-
-// Material-ui Icons
-import SettingsOverscanOutlinedIcon from "@material-ui/icons/SettingsOverscanOutlined";
 
 // Components
 import DropdownMenu from "../DropdownMenu";
 
 // Font Awesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faImages, faUpload, faTrashAlt, faCamera } from "@fortawesome/free-solid-svg-icons";
-
-// Assets
+import { faUpload, faCamera } from "@fortawesome/free-solid-svg-icons";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
-    padding: theme.spacing(1, 10),
+    height: "100%",
+    padding: theme.spacing(1),
   },
   editPhotoButton: {
     position: "absolute",
     bottom: 5,
     right: 5,
+    "&:hover": {
+      backgroundColor: theme.palette.common.white,
+    },
+  },
+  editPhotoButtonText: {
+    color: theme.palette.secondary.light,
+    fontWeight: 600,
+  },
+  editPhotoIcon: {
+    fontsize: 50,
+    padding: theme.spacing(0, 1, 0, 0),
   },
   userPhoto: {
     width: "100%",
-    height: "auto",
+    height: "100%",
+    objectFit: "cover",
   },
   photoContainer: {
     position: "relative",
+    height: "100%",
+    width: "100%",
   },
-  photoPaper: {
-    width: 500,
+  modal: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  modalPaper: {
+    backgroundColor: theme.palette.background.paper,
+    minHeight: 200,
+    minWidth: 500,
+    border: "2px solid #000",
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
+  modalDetails: {
+    width: "100%",
+  },
+  modalPhoto: {
+    width: "100%:,",
+  },
+  modalTitle: {
+    fontWeight: 600,
+  },
+  dummyPic: {
+    display: "flex",
+    width: "100%",
+    height: 500,
+    justifyContent: "center",
+    alignItems: "center",
   },
 }));
 
-const mapState = ({ user, storage }) => ({
-  currentUser: user.currentUser,
-  profilePhoto: storage.url,
+const mapState = ({ userdata }) => ({
+  profilePhoto: userdata.url,
 });
 
-const CoverPhoto = () => {
+const CoverPhoto = (props) => {
   const dispatch = useDispatch();
   const classes = useStyles();
-  const { currentUser, profilePhoto } = useSelector(mapState);
-  const [open, setOpen] = useState(false);
+  const { currentUser } = useSelector(mapState);
+  const [loaderOpen, setLoaderOpen] = useState(false);
 
-  useEffect(() => {
-    dispatch(syncFileURL());
-  }, [dispatch]);
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleSave = (file) => {
+  const handleLoaderSave = (file) => {
     if (!currentUser) return;
     const photo = file[0];
     dispatch(setFile(photo));
     dispatch(sendFile());
-    setOpen(false);
+    setLoaderOpen(false);
   };
 
-  const handleOpen = () => {
-    setOpen(true);
+  const handleLoaderOpen = () => {
+    setLoaderOpen(true);
+  };
+  const handleLoaderClose = () => {
+    setLoaderOpen(false);
   };
 
   return (
     <div className={classes.root}>
       <Grid container justify="center" alignItems="center">
-        <Paper className={classes.photoPaper} elevation={3}>
-          <Grid className={classes.photoContainer} container justify="center" alignItems="center">
-            <Grid item xs>
-              <img className={classes.userPhoto} src={profilePhoto} alt="UserPhoto" />
-              <DropdownMenu
-                button={
-                  <Typography>
-                    <FontAwesomeIcon icon={faCamera} />
-                    Edit Cover Photo
-                  </Typography>
-                }
-                buttonStyles={classes.editPhotoButton}
-              >
-                <MenuItem>
-                  <FontAwesomeIcon icon={faImages} />
-                  <Typography variant="subtitle1">Select Photo</Typography>
-                </MenuItem>
-                <MenuItem onClick={handleOpen}>
-                  <FontAwesomeIcon icon={faUpload} />
-                  <Typography variant="subtitle1">Upload Photo</Typography>
-                </MenuItem>
-                <MenuItem>
-                  <SettingsOverscanOutlinedIcon />
-                  <Typography variant="subtitle1">Reposition</Typography>
-                </MenuItem>
-                <Divider />
-                <MenuItem>
-                  <FontAwesomeIcon icon={faTrashAlt} />
-                  <Typography variant="subtitle1">Remove</Typography>
-                </MenuItem>
-              </DropdownMenu>
-            </Grid>
-          </Grid>
-        </Paper>
+        <Grid className={classes.photoContainer} container justify="center" alignItems="center">
+          {props.photoURL ? (
+            <img className={classes.userPhoto} src={props.photoURL} alt="UserPhoto" />
+          ) : (
+            <Paper className={classes.dummyPic}>
+              <Typography variant="h3" align="center">
+                Upload A Profile Picture
+              </Typography>
+            </Paper>
+          )}
+
+          <DropdownMenu
+            button={
+              <>
+                <Typography className={classes.editPhotoIcon}>
+                  <FontAwesomeIcon icon={faCamera} />
+                </Typography>
+
+                <Typography className={classes.editPhotoButtonText}>Edit Cover Photo</Typography>
+              </>
+            }
+            buttonStyles={classes.editPhotoButton}
+          >
+            <MenuItem onClick={handleLoaderOpen}>
+              <Typography className={classes.editPhotoIcon}>
+                <FontAwesomeIcon icon={faUpload} />
+              </Typography>
+              <Typography variant="subtitle1">Upload Photo</Typography>
+            </MenuItem>
+          </DropdownMenu>
+        </Grid>
       </Grid>
       <div>
         <DropzoneDialog
           clearOnUnmount={true}
-          open={open}
-          onSave={handleSave}
-          acceptedFiles={["image/jpeg", "image/png", "image/bmp"]}
+          open={loaderOpen}
+          onSave={handleLoaderSave}
+          acceptedFiles={["image/*"]}
           showPreviews={true}
           maxFileSize={5000000}
-          onClose={handleClose}
+          onClose={handleLoaderClose}
           filesLimit={1}
         />
       </div>

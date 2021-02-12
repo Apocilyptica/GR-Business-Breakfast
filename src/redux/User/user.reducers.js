@@ -9,6 +9,14 @@ const INITIAL_STATE = {
 
 const userReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    case userTypes.UPDATE_USER_PROFILE:
+      return {
+        ...state,
+        currentUser: {
+          ...state.currentUser,
+          ...action.payload,
+        },
+      };
     case userTypes.SIGN_IN_SUCCESS:
       return {
         ...state,

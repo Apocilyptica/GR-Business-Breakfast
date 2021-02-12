@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 import { NavLink } from "react-router-dom";
@@ -17,7 +17,6 @@ import withWidth from "@material-ui/core/withWidth";
 import Grid from "@material-ui/core/Grid";
 import Avatar from "@material-ui/core/Avatar";
 import MenuItem from "@material-ui/core/MenuItem";
-import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
 
@@ -42,9 +41,6 @@ const mapState = ({ user, style }) => ({
 });
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
   menuButton: {
     marginRight: theme.spacing(2),
   },
@@ -94,78 +90,83 @@ const TopNav = (props) => {
   };
 
   return (
-    <div className={classes.root}>
-      <Collapse in={props.collapse}>
-        <AppBar position="static">
-          <Toolbar className={classes.toolbar}>
-            {socialLinksData.map((link, index) => {
-              return (
-                <IconButton key={index} edge="start" aria-label={link.label}>
-                  <SocialLinks href={link.URL} target="_blank" className={classes.iconButton} icon={link.iconUI} color={link.color} />
-                </IconButton>
-              );
-            })}
-            <Hidden only={["sm", "xs"]}>
-              <Typography className={classes.title} variant="h6">
-                GR Business Breakfast
-              </Typography>
-            </Hidden>
-            <Hidden only={["lg", "md", "xl"]}>
-              <Typography className={classes.title} variant="h6">
-                GRBB
-              </Typography>
-            </Hidden>
-            <div>
-              <Grid container justify="center" alignItems="center" spacing={2}>
-                <Grid item>
-                  <IconButton aria-label="shopping cart">
-                    <ShoppingCartIcon className={classes.shoppingCart} />
-                  </IconButton>
-                </Grid>
-                <Hidden only={["xs", "sm"]}>{loggedIn && <Grid item>Welcome {currentUser.displayName}</Grid>}</Hidden>
-                {!loggedIn && (
-                  <Grid item>
-                    <Button className={classes.signInButton} variant="outlined" color="secondary" onClick={handleSignOut}>
-                      <Typography className={classes.signInButtonText}>Sign In</Typography>
-                      <FontAwesomeIcon icon={faSignInAlt} />
-                    </Button>
-                  </Grid>
-                )}
-                {loggedIn && (
-                  <Grid item>
-                    <DropdownMenu button={<Avatar className={classes.avatar}>{currentUser.displayName[0]}</Avatar>}>
-                      <Typography variant="subtitle1">Signed in as</Typography>
-                      <Typography className={classes.userName} variant="subtitle1">
-                        {currentUser.displayName}
-                      </Typography>
-                      <Divider />
-                      <Button className={classes.setStatusButton} variant="outlined" color="secondary">
-                        <Typography className={classes.setStatus} align="center">
-                          Set status
-                        </Typography>
-                      </Button>
-                      <Divider />
-                      <MenuItem>
-                        <NavLink to="/userprofile">
-                          <Typography variant="subtitle1">Your Profile</Typography>
-                        </NavLink>
-                      </MenuItem>
-                      <MenuItem>
-                        <Typography variant="subtitle1">Your Account</Typography>
-                      </MenuItem>
-                      <Divider />
-                      <MenuItem onClick={handleSignOut}>
-                        <Typography variant="subtitle1">Sign out</Typography>
-                      </MenuItem>
-                    </DropdownMenu>
-                  </Grid>
-                )}
+    <Collapse in={props.collapse}>
+      <Toolbar className={classes.toolbar}>
+        {props.cellPhoneButton}
+        {socialLinksData.map((link, index) => {
+          return (
+            <IconButton key={index} edge="start" aria-label={link.label}>
+              <SocialLinks href={link.URL} target="_blank" className={classes.iconButton} icon={link.iconUI} color={link.color} />
+            </IconButton>
+          );
+        })}
+        <Hidden only={["sm", "xs"]}>
+          <Typography className={classes.title} variant="h6">
+            GR Business Breakfast
+          </Typography>
+        </Hidden>
+        <Hidden only={["lg", "md", "xl"]}>
+          <Typography className={classes.title} variant="h6">
+            GRBB
+          </Typography>
+        </Hidden>
+        <div>
+          <Grid container justify="center" alignItems="center" spacing={2}>
+            <Grid item>
+              <IconButton aria-label="shopping cart">
+                <ShoppingCartIcon className={classes.shoppingCart} />
+              </IconButton>
+            </Grid>
+            <Hidden only={["xs", "sm"]}>{loggedIn && <Grid item>Welcome {currentUser.displayName}</Grid>}</Hidden>
+            {!loggedIn && (
+              <Grid item>
+                <Button className={classes.signInButton} variant="outlined" color="secondary" onClick={handleSignOut}>
+                  <Typography className={classes.signInButtonText}>Sign In</Typography>
+                  <FontAwesomeIcon icon={faSignInAlt} />
+                </Button>
               </Grid>
-            </div>
-          </Toolbar>
-        </AppBar>
-      </Collapse>
-    </div>
+            )}
+            {loggedIn && (
+              <Grid item>
+                <DropdownMenu
+                  button={
+                    <Avatar alt={currentUser.displayName} src={currentUser.photoURL} className={classes.avatar}>
+                      {!currentUser.photoURL ? currentUser.displayName[0] : null}
+                    </Avatar>
+                  }
+                >
+                  <Typography variant="subtitle1">Signed in as</Typography>
+                  <Typography className={classes.userName} variant="subtitle1">
+                    {currentUser.displayName}
+                  </Typography>
+                  <Divider />
+                  <Button className={classes.setStatusButton} variant="outlined" color="secondary">
+                    <Typography className={classes.setStatus} align="center">
+                      Set status
+                    </Typography>
+                  </Button>
+                  <Divider />
+                  <MenuItem>
+                    <NavLink to={`/userprofile/${currentUser.displayName.replace(/\s/g, "")}`}>
+                      <Typography variant="subtitle1">Your Profile</Typography>
+                    </NavLink>
+                  </MenuItem>
+                  <MenuItem>
+                    <NavLink to={`/useraccount/${currentUser.displayName.replace(/\s/g, "")}`}>
+                      <Typography variant="subtitle1">Your Account</Typography>
+                    </NavLink>
+                  </MenuItem>
+                  <Divider />
+                  <MenuItem onClick={handleSignOut}>
+                    <Typography variant="subtitle1">Sign out</Typography>
+                  </MenuItem>
+                </DropdownMenu>
+              </Grid>
+            )}
+          </Grid>
+        </div>
+      </Toolbar>
+    </Collapse>
   );
 };
 
