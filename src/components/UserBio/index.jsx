@@ -25,7 +25,6 @@ import ReactHtmlParser from "react-html-parser";
 const useStyles = makeStyles((theme) => ({
   root: {
     flex: 1,
-    // flexWrap: "wrap",
   },
   dividerMargin: {
     margin: theme.spacing(2),
@@ -88,6 +87,7 @@ const UserBio = (props) => {
   };
 
   const handleSendBio = () => {
+    if (!props.currentUser) return;
     dispatch(sendBio(content));
     setOpen(false);
   };

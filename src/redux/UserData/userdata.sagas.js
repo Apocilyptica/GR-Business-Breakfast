@@ -2,7 +2,7 @@ import userdataTypes from "./userdata.types";
 import { call, all, put, takeEvery, select, takeLatest } from "redux-saga/effects";
 
 import { getCurrentUser, getCurrentUserRef, handleUserProfile, rsf } from "../../firebase/utils";
-import { setFileURL } from "./userdata.actions";
+import { setFileURL, setFileUpload } from "./userdata.actions";
 import { updateUserProfile } from "../User/user.actions";
 
 export function* getSnapshotFromUserData(user) {
@@ -32,6 +32,25 @@ export function* setBio({ payload }) {
 
 export function* onSetBioStart() {
   yield takeLatest(userdataTypes.SEND_BIO, setBio);
+}
+
+export function* sendSocialLinks({ payload }) {
+  try {
+    const userAuth = yield getCurrentUser();
+    if (!userAuth) return;
+    const snapshot = yield getSnapshotFromUserData(userAuth);
+    const userID = snapshot.id;
+    yield call(rsf.firestore.updateDocument, `users/${userID}`, {
+      socialLinks: payload,
+    });
+    yield put(updateUserProfile({ socialLinks: payload }));
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export function* onSendSocialLinks() {
+  yield takeLatest(userdataTypes.SEND_SOCIAL_LINKS, sendSocialLinks);
 }
 
 export function* getSnapshotFromUserAuth(user) {
@@ -73,6 +92,7 @@ export function* sendFileSaga(action) {
     task.on("state_changed", (snapshot) => {
       const pct = (snapshot.bytesTransferred * 100) / snapshot.totalBytes;
       console.log(`${pct}%`);
+      setFileUpload(pct);
     });
 
     // Wait for upload to complete
@@ -91,5 +111,5 @@ export function* rootSaga() {
 }
 
 export default function* userSagas() {
-  yield all([call(rootSaga), call(onSetBioStart)]);
+  yield all([call(rootSaga), call(onSetBioStart), call(onSendSocialLinks)]);
 }

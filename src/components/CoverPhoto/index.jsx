@@ -10,6 +10,7 @@ import Typography from "@material-ui/core/Typography";
 import MenuItem from "@material-ui/core/MenuItem";
 import { DropzoneDialog } from "material-ui-dropzone";
 import Paper from "@material-ui/core/Paper";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 // Material-ui Styles
 import { makeStyles } from "@material-ui/core/styles";
@@ -53,28 +54,6 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
     width: "100%",
   },
-  modal: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  modalPaper: {
-    backgroundColor: theme.palette.background.paper,
-    minHeight: 200,
-    minWidth: 500,
-    border: "2px solid #000",
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-  },
-  modalDetails: {
-    width: "100%",
-  },
-  modalPhoto: {
-    width: "100%:,",
-  },
-  modalTitle: {
-    fontWeight: 600,
-  },
   dummyPic: {
     display: "flex",
     width: "100%",
@@ -82,21 +61,26 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     alignItems: "center",
   },
+  loader: {
+    display: "flex",
+    position: "absolute",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100%",
+    width: "100%",
+    background: "rgba(0, 0, 0, 0.5)",
+  },
 }));
-
-const mapState = ({ userdata }) => ({
-  profilePhoto: userdata.url,
-});
 
 const CoverPhoto = (props) => {
   const dispatch = useDispatch();
   const classes = useStyles();
-  const { currentUser } = useSelector(mapState);
   const [loaderOpen, setLoaderOpen] = useState(false);
 
   const handleLoaderSave = (file) => {
-    if (!currentUser) return;
+    if (!props.currentUser) return;
     const photo = file[0];
+
     dispatch(setFile(photo));
     dispatch(sendFile());
     setLoaderOpen(false);
@@ -122,6 +106,12 @@ const CoverPhoto = (props) => {
               </Typography>
             </Paper>
           )}
+
+          {props.loading ? (
+            <Paper className={classes.loader} square>
+              <CircularProgress size={60} thickness={5} color="secondary" />
+            </Paper>
+          ) : null}
 
           <DropdownMenu
             button={

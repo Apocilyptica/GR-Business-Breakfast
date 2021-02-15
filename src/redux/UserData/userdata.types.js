@@ -3,7 +3,9 @@ const userdataTypes = {
   SET_FILE: "SET_FILE",
   SET_FILE_URL: "SET_FILE_URL",
   SYNC_FILE_URL: "SYNC_FILE_URL",
+  SET_FILE_UPLOAD: "SET_FILE_UPLOAD",
   SEND_BIO: "SEND_BIO",
+  SEND_SOCIAL_LINKS: "SEND_SOCIAL_LINKS",
 };
 
 export default userdataTypes;

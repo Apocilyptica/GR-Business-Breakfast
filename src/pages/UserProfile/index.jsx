@@ -13,8 +13,9 @@ import UserBio from "../../components/UserBio";
 import UserSocialLinks from "../../components/UserSocialLinks";
 import { useSelector } from "react-redux";
 
-const mapState = ({ user }) => ({
+const mapState = ({ user, userdata }) => ({
   currentUser: user.currentUser,
+  loading: userdata.loading,
 });
 
 const useStyles = makeStyles((theme) => ({
@@ -29,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const UserProfile = (props) => {
-  const { currentUser } = useSelector(mapState);
+  const { currentUser, loading } = useSelector(mapState);
   const classes = useStyles();
 
   return (
@@ -38,19 +39,19 @@ const UserProfile = (props) => {
         <Grid item xs={12} md={6} container direction="column" alignItems="stretch" spacing={2}>
           <Grid item container>
             <Paper className={classes.paper}>
-              <CoverPhoto photoURL={currentUser.photoURL} />
+              <CoverPhoto photoURL={currentUser.photoURL} currentUser={currentUser ? true : false} loading={loading} />
             </Paper>
           </Grid>
           <Grid item container>
             <Paper className={classes.paper}>
-              <UserBio bio={currentUser.bio} />
+              <UserBio bio={currentUser.bio} currentUser={currentUser ? true : false} />
             </Paper>
           </Grid>
         </Grid>
         <Grid item xs={12} md={6} container direction="column" alignItems="stretch" spacing={2}>
           <Grid item container>
             <Paper className={classes.paper}>
-              <UserSocialLinks />
+              <UserSocialLinks currentUser={currentUser ? true : false} socialLinks={currentUser.socialLinks} />
             </Paper>
           </Grid>
           <Grid item container>

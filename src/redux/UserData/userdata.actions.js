@@ -18,3 +18,13 @@ export const sendBio = (content) => ({
   type: userdataTypes.SEND_BIO,
   payload: content,
 });
+
+export const setFileUpload = (percent) => ({
+  type: userdataTypes.SET_FILE_UPLOAD,
+  payload: percent,
+});
+
+export const setSocialLinks = (links) => ({
+  type: userdataTypes.SEND_SOCIAL_LINKS,
+  payload: links,
+});
