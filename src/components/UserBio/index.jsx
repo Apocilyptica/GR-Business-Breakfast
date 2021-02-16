@@ -56,6 +56,8 @@ const UserBio = (props) => {
   const [open, setOpen] = React.useState(false);
   const [contentLength, setContentLength] = useState(props.bio ? props.bio.length : 0);
   const prevContentRef = useRef();
+  const words = content.split(" ").length;
+  const maxWords = 500;
 
   useEffect(() => {
     prevContentRef.current = content;
@@ -63,7 +65,7 @@ const UserBio = (props) => {
   const prevContent = prevContentRef.current;
 
   const handleOpen = () => {
-    setContentLength(content.length);
+    setContentLength(words);
     setOpen(true);
   };
 
@@ -72,12 +74,12 @@ const UserBio = (props) => {
   };
 
   const handleRichTextEditorChange = (content) => {
-    if (content.length > 2000) {
-      setContentLength(content.length);
+    if (words > maxWords) {
+      setContentLength(words);
       setContent(prevContent);
       return;
     }
-    setContentLength(content.length);
+    setContentLength(words);
     setContent(content);
   };
 
@@ -123,12 +125,12 @@ const UserBio = (props) => {
               handleRichTextEditorChange={handleRichTextEditorChange}
               contentToEdit={content}
               contentLength={contentLength}
-              setContentLength={2000}
+              setContentLength={maxWords}
             />
             <Divider className={classes.dividerMargin} />
             <Grid item xs={12} container justify="flex-end" spacing={1}>
-              <Grid item style={{ color: contentLength > 2000 ? "red" : null }}>
-                {contentLength}/2000
+              <Grid item style={{ color: contentLength > maxWords ? "red" : null }}>
+                {contentLength}/{maxWords}
               </Grid>
               <Grid className={classes.root} item />
               <Grid item>

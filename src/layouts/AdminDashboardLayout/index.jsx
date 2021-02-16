@@ -18,11 +18,11 @@ import { useScrollTrigger } from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
 
 // Material-ui Icons
-import MailIcon from "@material-ui/icons/Mail";
 import MenuIcon from "@material-ui/icons/Menu";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import LockIcon from "@material-ui/icons/Lock";
 import SupervisorAccountIcon from "@material-ui/icons/SupervisorAccount";
+import GroupAddIcon from "@material-ui/icons/GroupAdd";
 
 // Components
 import TopNav from "../../components/navbars/TopNav";
@@ -91,7 +91,7 @@ const mapState = ({ user }) => ({
   currentUser: user.currentUser,
 });
 
-function UserProfileLayout(props) {
+function AdminDashboardLayout(props) {
   const { window } = props;
   const classes = useStyles();
   const theme = useTheme();
@@ -149,12 +149,15 @@ function UserProfileLayout(props) {
       </List>
       <Divider />
       <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
+        <NavLink to={`/admindashboarduserroles/${currentUser.displayName.replace(/\s/g, "")}`}>
+          <ListItem button>
+            <ListItemIcon>
+              {" "}
+              <GroupAddIcon />{" "}
+            </ListItemIcon>
+            <ListItemText primary="User Roles" />
           </ListItem>
-        ))}
+        </NavLink>
       </List>
     </div>
   );
@@ -215,7 +218,7 @@ function UserProfileLayout(props) {
   );
 }
 
-UserProfileLayout.propTypes = {
+AdminDashboardLayout.propTypes = {
   /**
    * Injected by the documentation to work in an iframe.
    * You won't need it on your project.
@@ -223,4 +226,4 @@ UserProfileLayout.propTypes = {
   window: PropTypes.func,
 };
 
-export default UserProfileLayout;
+export default AdminDashboardLayout;

@@ -6,11 +6,13 @@ import { combineReducers } from "redux";
 import userReducer from "./User/user.reducers";
 import styleReducer from "./Styles/styles.reducers";
 import userdataReducer from "./UserData/userdata.reducers";
+import adminReducer from "./Admin/admin.reducers";
 
 export const rootReducer = combineReducers({
   user: userReducer,
   style: styleReducer,
   userdata: userdataReducer,
+  admindata: adminReducer,
 });
 
 // const configStorage = {

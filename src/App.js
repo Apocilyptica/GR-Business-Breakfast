@@ -29,6 +29,7 @@ import WithAdminAuth from "./hoc/withAdminAuth";
 // layouts
 import MainLayout from "./layouts/MainLayout";
 import UserProfileLayout from "./layouts/UserProfileLayout";
+import AdminDashboardLayout from "./layouts/AdminDashboardLayout";
 
 // Pages
 import Homepage from "./pages/HomePage";
@@ -43,6 +44,8 @@ import Testimonials from "./pages/Testimonials";
 import UpComingEvents from "./pages/UpComingEvents";
 import Registration from "./pages/Registration";
 import UserAccount from "./pages/UserAccount";
+import AdminDashboard from "./pages/AdminDashboard";
+import UserRole from "./pages/UserRole";
 
 // Default SCSS
 import "./default.scss";
@@ -247,6 +250,26 @@ function App(props) {
                   <UserAccount />
                 </UserProfileLayout>
               </WithAuth>
+            )}
+          />
+          <Route
+            path="/admindashboard/:slug"
+            render={(props) => (
+              <WithAdminAuth>
+                <AdminDashboardLayout>
+                  <AdminDashboard />
+                </AdminDashboardLayout>
+              </WithAdminAuth>
+            )}
+          />
+          <Route
+            path="/admindashboarduserroles/:slug"
+            render={(props) => (
+              <WithAdminAuth>
+                <AdminDashboardLayout>
+                  <UserRole />
+                </AdminDashboardLayout>
+              </WithAdminAuth>
             )}
           />
         </Switch>

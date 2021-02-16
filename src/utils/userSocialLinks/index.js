@@ -11,7 +11,7 @@ import { faFacebook, faTwitter, faLinkedin, faInstagram } from "@fortawesome/fre
 export const userSocialLinks = [
   {
     name: "facebook",
-    label: "facebook URL",
+    label: "Facebook URL",
     labelWidth: 110,
     iconUI: <FacebookIcon />,
     iconFa: <FontAwesomeIcon icon={faFacebook} />,
@@ -20,7 +20,7 @@ export const userSocialLinks = [
   },
   {
     name: "twitter",
-    label: "twitter URL",
+    label: "Twitter URL",
     labelWidth: 85,
     iconUI: <TwitterIcon />,
     iconFa: <FontAwesomeIcon icon={faTwitter} />,
@@ -29,7 +29,7 @@ export const userSocialLinks = [
   },
   {
     name: "linkedin",
-    label: "linkedin URL",
+    label: "Linkedin URL",
     labelWidth: 100,
     iconUI: <LinkedInIcon />,
     iconFa: <FontAwesomeIcon icon={faLinkedin} />,
@@ -38,7 +38,7 @@ export const userSocialLinks = [
   },
   {
     name: "instagram",
-    label: "instagram URL",
+    label: "Instagram URL",
     labelWidth: 115,
     iconUI: <InstagramIcon id="instagram" />,
     iconFa: <FontAwesomeIcon icon={faInstagram} id="instagram" />,

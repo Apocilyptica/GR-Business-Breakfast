@@ -127,33 +127,33 @@ const DropdownMenu = (props) => {
       >
         {props.button}
       </Button>
-      <Popper
-        className={classes.popper}
-        open={open}
-        anchorEl={anchorRef.current}
-        role={undefined}
-        transition
-        disablePortal
-        modifiers={{
-          arrow: {
-            enabled: true,
-            element: arrowRef,
-          },
-        }}
-      >
-        {({ TransitionProps, placement }) => (
-          <Grow {...TransitionProps} style={{ transformOrigin: placement === "bottom" ? "center top" : "center bottom" }}>
-            <ClickAwayListener onClickAway={handleClose}>
+      <ClickAwayListener onClickAway={handleClose}>
+        <Popper
+          className={classes.popper}
+          open={open}
+          anchorEl={anchorRef.current}
+          role={undefined}
+          transition
+          disablePortal
+          modifiers={{
+            arrow: {
+              enabled: true,
+              element: arrowRef,
+            },
+          }}
+        >
+          {({ TransitionProps, placement }) => (
+            <Grow {...TransitionProps} style={{ transformOrigin: placement === "bottom" ? "center top" : "center bottom" }}>
               <Paper className={classes.paperPopper}>
                 <span className={classes.arrow} ref={setArrowRef} />
                 <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
                   {props.children}
                 </MenuList>
               </Paper>
-            </ClickAwayListener>
-          </Grow>
-        )}
-      </Popper>
+            </Grow>
+          )}
+        </Popper>
+      </ClickAwayListener>
     </>
   );
 };

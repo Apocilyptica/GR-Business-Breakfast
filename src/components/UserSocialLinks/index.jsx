@@ -48,10 +48,10 @@ const UserSocialLinks = (props) => {
     instagram: props.socialLinks.instagram,
   });
   const [validURL, setValidURL] = useState({
-    facebook: checkValidURL(props.socialLinks.facebook),
-    linkedin: checkValidURL(props.socialLinks.linkedin),
-    twitter: checkValidURL(props.socialLinks.twitter),
-    instagram: checkValidURL(props.socialLinks.instagram),
+    facebook: checkValidURL(props.socialLinks.facebook, "facebook"),
+    linkedin: checkValidURL(props.socialLinks.linkedin, "linkedin"),
+    twitter: checkValidURL(props.socialLinks.twitter, "twitter"),
+    instagram: checkValidURL(props.socialLinks.instagram, "instagram"),
   });
   const [validate, setValidate] = useState(false);
   const [open, setOpen] = useState(false);
@@ -84,14 +84,14 @@ const UserSocialLinks = (props) => {
 
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
-    const validation = setValidURL({ ...validURL, [prop]: checkValidURL(event.target.value) });
+    const validation = setValidURL({ ...validURL, [prop]: checkValidURL(event.target.value, prop) });
     setValidate(!validation);
   };
 
-  function checkValidURL(str) {
+  function checkValidURL(str, prop) {
     if (str.length === 0) return false;
     var pattern = new RegExp(
-      "^(https?:\\/\\/)?" + // protocol
+      `^(https?:\\/\\/)?(?:www.)?${prop}?` + // protocol
         "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
         "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
         "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
@@ -110,7 +110,7 @@ const UserSocialLinks = (props) => {
         </Typography>
         {userSocialLinks.map((link, index) => {
           return (
-            <>
+            <div key={index}>
               <FormControl className={classes.formItem} key={index} fullWidth variant="outlined">
                 <InputLabel htmlFor="outlined-adornment-password">{link.label}</InputLabel>
                 <OutlinedInput
@@ -128,10 +128,10 @@ const UserSocialLinks = (props) => {
               </FormControl>
               {eval(`validURL.${link.name}`) ? (
                 <Typography color="error" variant="subtitle2">
-                  * Please Enter A Valid URL
+                  * Please Enter A Valid {link.label}
                 </Typography>
               ) : null}
-            </>
+            </div>
           );
         })}
         <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
