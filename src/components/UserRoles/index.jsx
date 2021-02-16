@@ -21,19 +21,32 @@ import Switch from "@material-ui/core/Switch";
 import DeleteIcon from "@material-ui/icons/Delete";
 import FilterListIcon from "@material-ui/icons/FilterList";
 
+// Data
+import { userRoles } from "../../utils/userRoles";
+
 function createData(name, user, member, silver, gold, platinum, speaker, admin) {
   return { name, user, member, silver, gold, platinum, speaker, admin };
 }
 
 const rows = (props) => {
-  const array = [];
+  const userArray = [];
 
   Object.entries(props.users).map((user, index) => {
+    const roleArray = [];
     const userData = user[1];
-    return array.push(createData(userData.displayName, 437, 18.0, 63, 4.0, 5, 5, 5));
+    userRoles.map((role) => {
+      if (userData.userRoles.find((e) => e === role)) {
+        return roleArray.push("true");
+      }
+      return roleArray.push("false");
+    });
+    console.log(roleArray);
+    return userArray.push(
+      createData(userData.displayName, roleArray[0], roleArray[1], roleArray[2], roleArray[3], roleArray[4], roleArray[5], roleArray[6])
+    );
   });
 
-  return array;
+  return userArray;
 };
 
 function descendingComparator(a, b, orderBy) {
@@ -62,13 +75,13 @@ function stableSort(array, comparator) {
 
 const headCells = [
   { id: "name", numeric: false, disablePadding: true, label: "User Name" },
-  { id: "user", numeric: true, disablePadding: false, label: "User" },
-  { id: "member", numeric: true, disablePadding: false, label: "Member" },
-  { id: "silver", numeric: true, disablePadding: false, label: "Silver" },
-  { id: "gold", numeric: true, disablePadding: false, label: "Gold" },
-  { id: "platinum", numeric: true, disablePadding: false, label: "Platinum" },
-  { id: "speaker", numeric: true, disablePadding: false, label: "Event Speaker" },
-  { id: "admin", numeric: true, disablePadding: false, label: "Admin" },
+  { id: "user", numeric: false, disablePadding: false, label: "User" },
+  { id: "member", numeric: false, disablePadding: false, label: "Member" },
+  { id: "silver", numeric: false, disablePadding: false, label: "Silver" },
+  { id: "gold", numeric: false, disablePadding: false, label: "Gold" },
+  { id: "platinum", numeric: false, disablePadding: false, label: "Platinum" },
+  { id: "speaker", numeric: false, disablePadding: false, label: "Event Speaker" },
+  { id: "admin", numeric: false, disablePadding: false, label: "Admin" },
 ];
 
 function EnhancedTableHead(props) {
