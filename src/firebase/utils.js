@@ -4,8 +4,15 @@ import ReduxSagaFirebase from "redux-saga-firebase";
 import "firebase/auth";
 import { firebaseConfig } from "./config";
 import "firebase/storage";
+import admin from "firebase-admin";
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
+
+const serviceAccount = require("./grbb-4d67a-firebase-adminsdk-mj5la-6323bd2bf9.json");
+const adminControls = admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://grbb-4d67a-default-rtdb.firebaseio.com/",
+});
 
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
@@ -60,3 +67,4 @@ export const getCurrentUser = () => {
 };
 
 export const rsf = new ReduxSagaFirebase(firebaseApp);
+export const ADMIN = adminControls;

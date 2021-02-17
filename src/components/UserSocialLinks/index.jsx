@@ -42,16 +42,16 @@ const UserSocialLinks = (props) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [values, setValues] = useState({
-    facebook: props.socialLinks.facebook,
-    linkedin: props.socialLinks.linkedin,
-    twitter: props.socialLinks.twitter,
-    instagram: props.socialLinks.instagram,
+    facebook: props.socialLinks ? props.socialLinks.facebook : "",
+    linkedin: props.socialLinks ? props.socialLinks.linkedin : "",
+    twitter: props.socialLinks ? props.socialLinks.twitter : "",
+    instagram: props.socialLinks ? props.socialLinks.instagram : "",
   });
   const [validURL, setValidURL] = useState({
-    facebook: checkValidURL(props.socialLinks.facebook, "facebook"),
-    linkedin: checkValidURL(props.socialLinks.linkedin, "linkedin"),
-    twitter: checkValidURL(props.socialLinks.twitter, "twitter"),
-    instagram: checkValidURL(props.socialLinks.instagram, "instagram"),
+    facebook: checkValidURL(props.socialLinks ? props.socialLinks.facebook : "", "facebook"),
+    linkedin: checkValidURL(props.socialLinks ? props.socialLinks.linkedin : "", "linkedin"),
+    twitter: checkValidURL(props.socialLinks ? props.socialLinks.twitter : "", "twitter"),
+    instagram: checkValidURL(props.socialLinks ? props.socialLinks.instagram : "", "instagram"),
   });
   const [validate, setValidate] = useState(false);
   const [open, setOpen] = useState(false);
@@ -116,6 +116,7 @@ const UserSocialLinks = (props) => {
                 <OutlinedInput
                   id="outlined-adornment-password"
                   type="url"
+                  autoComplete="off"
                   value={eval(`values.${link.name}`)}
                   onChange={handleChange(`${link.name}`)}
                   endAdornment={

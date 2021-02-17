@@ -1,6 +1,9 @@
 const adminTypes = {
   GET_USERS_DATA: "GET_USERS_DATA",
   GOT_USERS: "GOT_USERS",
+  GOT_USER: "GOT_USER",
+  SET_USER_ROLE: "SET_USER_ROLE",
+  START_DELETE_USER: "START_DELETE_USER",
 };
 
 export default adminTypes;
