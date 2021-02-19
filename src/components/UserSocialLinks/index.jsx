@@ -117,7 +117,7 @@ const UserSocialLinks = (props) => {
                   id="outlined-adornment-password"
                   type="url"
                   autoComplete="off"
-                  value={eval(`values.${link.name}`)}
+                  value={values[link.name]}
                   onChange={handleChange(`${link.name}`)}
                   endAdornment={
                     <InputAdornment style={link.color} position="end">
@@ -127,7 +127,7 @@ const UserSocialLinks = (props) => {
                   labelWidth={link.labelWidth}
                 />
               </FormControl>
-              {eval(`validURL.${link.name}`) ? (
+              {validURL[link.name] ? (
                 <Typography color="error" variant="subtitle2">
                   * Please Enter A Valid {link.label}
                 </Typography>

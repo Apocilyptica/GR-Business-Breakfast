@@ -1,9 +1,8 @@
 import adminTypes from "./admin.types";
 import { takeLatest, call, all, put } from "redux-saga/effects";
-import { rsf, ADMIN } from "../../firebase/utils";
+import { rsf } from "../../firebase/utils";
 
 import { gotUsers, gotUser } from "./admin.actions";
-import { faUsers } from "@fortawesome/free-solid-svg-icons";
 
 export function* getUsersData() {
   const snapshot = yield call(rsf.firestore.getCollection, "users");
@@ -69,11 +68,6 @@ export function* deleteUser(payload) {
       users.map((user) => {
         const filePath = "users/" + user + "/profile.jpg";
         return call(rsf.storage.deleteFile, filePath);
-      })
-    );
-    yield all(
-      users.map((user) => {
-        return call(ADMIN.auth().deleteUser(user));
       })
     );
   } catch (error) {

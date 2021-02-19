@@ -7,6 +7,7 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     dispatch(getUseresData());
+    // eslint-disable-next-line
   }, []);
 
   return (

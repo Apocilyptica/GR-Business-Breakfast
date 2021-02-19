@@ -15,6 +15,7 @@ const useAdminAuth = (props) => {
     if (!checkUserIsAdmin(currentUser)) {
       history.push("/login");
     }
+    // eslint-disable-next-line
   }, [currentUser]);
 
   return currentUser;
