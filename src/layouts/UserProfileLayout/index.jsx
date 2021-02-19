@@ -133,7 +133,7 @@ function UserProfileLayout(props) {
         {currentUser.userRoles.map((role, index) => {
           if (role === "admin") {
             return (
-              <NavLink key={index} to={`/admindashboard/${currentUser.displayName.replace(/\s/g, "")}`}>
+              <NavLink key={index} to={`/admin/dashboard/${currentUser.displayName.replace(/\s/g, "")}`}>
                 <ListItem button>
                   <ListItemIcon>
                     {" "}

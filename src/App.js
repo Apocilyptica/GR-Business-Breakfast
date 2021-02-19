@@ -253,7 +253,7 @@ function App(props) {
             )}
           />
           <Route
-            path="/admindashboard/:slug"
+            path="/admin/dashboard/:slug"
             render={(props) => (
               <WithAdminAuth>
                 <AdminDashboardLayout>
@@ -263,7 +263,7 @@ function App(props) {
             )}
           />
           <Route
-            path="/admindashboarduserroles/:slug"
+            path="/admin/userroles/:slug"
             render={(props) => (
               <WithAdminAuth>
                 <AdminDashboardLayout>
