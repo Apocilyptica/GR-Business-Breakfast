@@ -9,7 +9,6 @@ import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import Button from "@material-ui/core/Button";
 import Modal from "@material-ui/core/Modal";
-import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import Grid from "@material-ui/core/Grid";
 
@@ -52,11 +51,10 @@ const useStyles = makeStyles((theme) => ({
 const UserBio = (props) => {
   const dispatch = useDispatch();
   const classes = useStyles();
-  const [content, setContent] = useState(props.bio ? props.bio : "");
+  const [content, setContent] = useState(props.bio ? props.bio : "Welcome to Your Profile Page");
   const [open, setOpen] = React.useState(false);
-  const [contentLength, setContentLength] = useState(props.bio ? props.bio.length : 0);
+  const [contentLength, setContentLength] = useState(0);
   const prevContentRef = useRef();
-  const words = content.split(" ").length;
   const maxWords = 500;
 
   useEffect(() => {
@@ -65,7 +63,6 @@ const UserBio = (props) => {
   const prevContent = prevContentRef.current;
 
   const handleOpen = () => {
-    setContentLength(words);
     setOpen(true);
   };
 
@@ -73,14 +70,21 @@ const UserBio = (props) => {
     setOpen(false);
   };
 
-  const handleRichTextEditorChange = (content) => {
-    if (words > maxWords) {
-      setContentLength(words);
+  const handleRichTextEditorChange = (content, event) => {
+    const wordCount = event.plugins.wordcount.getCount();
+
+    if (wordCount > maxWords) {
+      setContentLength(wordCount);
       setContent(prevContent);
       return;
     }
-    setContentLength(words);
+    setContentLength(wordCount);
     setContent(content);
+  };
+
+  const handleRichTextEditorWordCount = (event) => {
+    const wordCount = event.target.plugins.wordcount.getCount();
+    setContentLength(wordCount);
   };
 
   const handleFormReset = () => {
@@ -114,18 +118,15 @@ const UserBio = (props) => {
         open={open}
         onClose={handleClose}
         closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
       >
         <Fade in={open}>
           <div className={classes.modalPaper}>
             <RichTextEditor
               handleRichTextEditorChange={handleRichTextEditorChange}
+              handleRichTextEditorWordCount={handleRichTextEditorWordCount}
               contentToEdit={content}
               contentLength={contentLength}
-              setContentLength={maxWords}
+              maxContentLength={maxWords}
             />
             <Divider className={classes.dividerMargin} />
             <Grid item xs={12} container justify="flex-end" spacing={1}>

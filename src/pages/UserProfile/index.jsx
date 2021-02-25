@@ -13,6 +13,9 @@ import UserBio from "../../components/UserBio";
 import UserSocialLinks from "../../components/UserSocialLinks";
 import { useSelector } from "react-redux";
 
+// Utils
+import { checkUserIsSponsor } from "../../utils";
+
 const mapState = ({ user, userdata }) => ({
   currentUser: user.currentUser,
   loading: userdata.loading,
@@ -54,9 +57,11 @@ const UserProfile = (props) => {
               <UserSocialLinks currentUser={currentUser ? true : false} socialLinks={currentUser.socialLinks} />
             </Paper>
           </Grid>
-          <Grid item container>
-            <Paper className={classes.paper} />
-          </Grid>
+          {checkUserIsSponsor(currentUser) ? (
+            <Grid item container>
+              <Paper className={classes.paper}>Sponsor</Paper>
+            </Grid>
+          ) : null}
           <Grid item container>
             <Paper className={classes.paper} />
           </Grid>

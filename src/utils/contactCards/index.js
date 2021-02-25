@@ -8,13 +8,13 @@ export const contactCardData = [
   {
     title: "Speakers and Sponsorships",
     name: "Michelle Steffes",
-    phone: "616-805-8059",
-    email: "michelle@ipvconsulting.net",
+    phone: "616-291-0377",
+    email: "michelle@ipvconsulting.com",
   },
   {
     title: "Door Prize Donations",
     name: "Gwyn Harnish",
-    phone: "-",
+    phone: "616-559-4528",
     email: "gwyn.harnish@unitedbank4u.com",
   },
   {

@@ -114,7 +114,6 @@ const UserSocialLinks = (props) => {
               <FormControl className={classes.formItem} key={index} fullWidth variant="outlined">
                 <InputLabel htmlFor="outlined-adornment-password">{link.label}</InputLabel>
                 <OutlinedInput
-                  id="outlined-adornment-password"
                   type="url"
                   autoComplete="off"
                   value={values[link.name]}
