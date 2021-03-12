@@ -28,3 +28,15 @@ export const setSocialLinks = (links) => ({
   type: userdataTypes.SEND_SOCIAL_LINKS,
   payload: links,
 });
+
+export const storageDelete = ({ uuid, id }) => ({
+  type: userdataTypes.STORAGE_DELETE,
+  uuid: uuid,
+  id: id,
+});
+
+export const updateUserData = (dataType, content) => ({
+  type: userdataTypes.UPDATE_USER_DATA,
+  dataType: dataType,
+  content: content,
+});

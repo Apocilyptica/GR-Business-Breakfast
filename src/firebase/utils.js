@@ -7,9 +7,12 @@ import "firebase/storage";
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 
-export const auth = firebase.auth();
-export const firestore = firebase.firestore();
-export const storage = firebase.storage();
+const auth = firebase.auth();
+const firestore = firebase.firestore();
+const storage = firebase.storage();
+const timestamp = firebase.firestore.FieldValue.serverTimestamp;
+
+export { auth, firestore, storage, timestamp };
 
 export const GoogleProvider = new firebase.auth.GoogleAuthProvider();
 GoogleProvider.setCustomParameters({ prompt: "select_account" });
@@ -23,7 +26,6 @@ export const handleUserProfile = async ({ userAuth, additionalData }) => {
 
   if (!snapshot.exists) {
     const { displayName, email } = userAuth;
-    const timestamp = new Date();
     const userRoles = ["user"];
 
     try {

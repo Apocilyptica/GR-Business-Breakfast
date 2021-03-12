@@ -8,7 +8,6 @@ import { sendFile, setFile } from "../../redux/UserData/userdata.actions";
 import Grid from "@material-ui/core/grid";
 import Typography from "@material-ui/core/Typography";
 import MenuItem from "@material-ui/core/MenuItem";
-import { DropzoneDialog } from "material-ui-dropzone";
 import Paper from "@material-ui/core/Paper";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
@@ -17,6 +16,9 @@ import { makeStyles } from "@material-ui/core/styles";
 
 // Components
 import DropdownMenu from "../DropdownMenu";
+import ImgEditor from "../ImgEditor";
+import UserPhotosSelect from "../UserPhotosSelect";
+import CustomDialog from "../CustomDialog";
 
 // Font Awesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -75,7 +77,9 @@ const useStyles = makeStyles((theme) => ({
 const CoverPhoto = (props) => {
   const dispatch = useDispatch();
   const classes = useStyles();
-  const [loaderOpen, setLoaderOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [selectImage, setSelectImage] = useState(null);
+  const [openSelectImage, setOpenSelectImage] = useState(false);
 
   const handleLoaderSave = (file) => {
     if (!props.currentUser) return;
@@ -83,14 +87,23 @@ const CoverPhoto = (props) => {
 
     dispatch(setFile(photo));
     dispatch(sendFile());
-    setLoaderOpen(false);
+    setOpen(false);
+  };
+
+  const handleSetProfileImage = () => {
+    return;
   };
 
   const handleLoaderOpen = () => {
-    setLoaderOpen(true);
+    setOpen(true);
   };
-  const handleLoaderClose = () => {
-    setLoaderOpen(false);
+
+  const handleSelectImageClose = () => {
+    setOpenSelectImage(false);
+  };
+
+  const handleSelectImageOpen = () => {
+    setOpenSelectImage(true);
   };
 
   return (
@@ -131,20 +144,20 @@ const CoverPhoto = (props) => {
               </Typography>
               <Typography variant="subtitle1">Upload Photo</Typography>
             </MenuItem>
+            <MenuItem onClick={handleSelectImageOpen}>
+              <Typography className={classes.editPhotoIcon}>
+                <FontAwesomeIcon icon={faUpload} />
+              </Typography>
+              <Typography variant="subtitle1">Set Profile Image</Typography>
+            </MenuItem>
           </DropdownMenu>
         </Grid>
       </Grid>
+      <ImgEditor open={open} setOpen={setOpen} />
       <div>
-        <DropzoneDialog
-          clearOnUnmount={true}
-          open={loaderOpen}
-          onSave={handleLoaderSave}
-          acceptedFiles={["image/*"]}
-          showPreviews={true}
-          maxFileSize={5000000}
-          onClose={handleLoaderClose}
-          filesLimit={1}
-        />
+        <CustomDialog open={openSelectImage} onClose={handleSelectImageClose} title="My Images">
+          <UserPhotosSelect isSelectImage={true} buttonTitle="Set as Profile" dataType="profileImage" setOpenSelectImage={setOpenSelectImage} />
+        </CustomDialog>
       </div>
     </div>
   );

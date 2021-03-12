@@ -5,6 +5,24 @@ import { getCurrentUser, getCurrentUserRef, handleUserProfile, rsf } from "../..
 import { setFileURL, setFileUpload } from "./userdata.actions";
 import { updateUserProfile } from "../User/user.actions";
 
+export function* startStorageDelete({ uuid, id }) {
+  try {
+    const userAuth = yield getCurrentUser();
+    if (!userAuth) return;
+    const snapshot = yield getSnapshotFromUserData(userAuth);
+    const userID = snapshot.id;
+    const filePath = "users/" + userID + "/" + uuid;
+    yield call(rsf.firestore.deleteDocument, `users/${userID}/images/${id}`);
+    yield call(rsf.storage.deleteFile, filePath);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export function* onStartStorageDelete() {
+  yield takeLatest(userdataTypes.STORAGE_DELETE, startStorageDelete);
+}
+
 export function* getSnapshotFromUserData(user) {
   try {
     const userRef = yield call(getCurrentUserRef, { userAuth: user });
@@ -13,6 +31,25 @@ export function* getSnapshotFromUserData(user) {
   } catch (error) {
     console.log(error);
   }
+}
+
+export function* updateUserData({ dataType, content }) {
+  try {
+    const userAuth = yield getCurrentUser();
+    if (!userAuth) return;
+    const snapshot = yield getSnapshotFromUserData(userAuth);
+    const userID = snapshot.id;
+    yield call(rsf.firestore.updateDocument, `users/${userID}`, {
+      [dataType]: content,
+    });
+    yield put(updateUserProfile({ [dataType]: content }));
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export function* onUpdateUserData() {
+  yield takeLatest(userdataTypes.UPDATE_USER_DATA, updateUserData);
 }
 
 export function* setBio({ payload }) {
@@ -64,7 +101,7 @@ export function* getSnapshotFromUserAuth(user) {
       photoURL: url,
     });
 
-    yield put(updateUserProfile({ photoURL: url }));
+    yield put(updateUserProfile({ profilePhotoURL: url }));
     yield put(setFileURL(url));
   } catch (err) {
     // console.log(err);
@@ -111,5 +148,5 @@ export function* rootSaga() {
 }
 
 export default function* userSagas() {
-  yield all([call(rootSaga), call(onSetBioStart), call(onSendSocialLinks)]);
+  yield all([call(rootSaga), call(onSetBioStart), call(onSendSocialLinks), call(onStartStorageDelete), call(onUpdateUserData)]);
 }

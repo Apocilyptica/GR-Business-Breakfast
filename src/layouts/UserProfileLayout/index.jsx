@@ -8,7 +8,6 @@ import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
 import Hidden from "@material-ui/core/Hidden";
 import IconButton from "@material-ui/core/IconButton";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -18,7 +17,7 @@ import { useScrollTrigger } from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
 
 // Material-ui Icons
-import MailIcon from "@material-ui/icons/Mail";
+import CameraIcon from "@material-ui/icons/Camera";
 import MenuIcon from "@material-ui/icons/Menu";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import LockIcon from "@material-ui/icons/Lock";
@@ -148,14 +147,17 @@ function UserProfileLayout(props) {
         })}
       </List>
       <Divider />
-      {/* <List>
-        {currentUser.userRoles.map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
+      <List>
+        <NavLink to={`/userimages/${currentUser.displayName.replace(/\s/g, "")}`}>
+          <ListItem button>
+            <ListItemIcon>
+              {" "}
+              <CameraIcon />{" "}
+            </ListItemIcon>
+            <ListItemText primary="My Images" />
           </ListItem>
-        ))}
-      </List> */}
+        </NavLink>
+      </List>
     </div>
   );
 

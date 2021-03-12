@@ -42,7 +42,7 @@ const UserProfile = (props) => {
         <Grid item xs={12} md={6} container direction="column" alignItems="stretch" spacing={2}>
           <Grid item container>
             <Paper className={classes.paper}>
-              <CoverPhoto photoURL={currentUser.photoURL} currentUser={currentUser ? true : false} loading={loading} />
+              <CoverPhoto photoURL={currentUser.profileImage} currentUser={currentUser ? true : false} loading={loading} />
             </Paper>
           </Grid>
           <Grid item container>

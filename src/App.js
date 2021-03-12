@@ -19,8 +19,7 @@ import { createMuiTheme, makeStyles, ThemeProvider } from "@material-ui/core/sty
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 
 // Components
-
-import UserProfile from "./pages/UserProfile";
+import UserPhotos from "./components/UserPhotos";
 
 // High Order Components
 import WithAuth from "./hoc/withAuth";
@@ -46,6 +45,7 @@ import Registration from "./pages/Registration";
 import UserAccount from "./pages/UserAccount";
 import AdminDashboard from "./pages/AdminDashboard";
 import UserRole from "./pages/UserRole";
+import UserProfile from "./pages/UserProfile";
 
 // Default SCSS
 import "./default.scss";
@@ -248,6 +248,16 @@ function App(props) {
               <WithAuth>
                 <UserProfileLayout>
                   <UserAccount />
+                </UserProfileLayout>
+              </WithAuth>
+            )}
+          />
+          <Route
+            path="/userimages/:slug"
+            render={(props) => (
+              <WithAuth>
+                <UserProfileLayout>
+                  <UserPhotos />
                 </UserProfileLayout>
               </WithAuth>
             )}
