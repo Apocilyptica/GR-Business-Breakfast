@@ -28,6 +28,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 // Component
 import SocialLinks from "../../SocialLinks";
+import UserAvatar from "../../UserAvatar";
 
 // Links
 import { socialLinksData } from "../../../utils/socialLinks";
@@ -55,9 +56,6 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       color: theme.palette.secondary.main,
     },
-  },
-  avatar: {
-    backgroundColor: theme.palette.text.primary,
   },
   userName: {
     fontWeight: 600,
@@ -128,13 +126,7 @@ const TopNav = (props) => {
             )}
             {loggedIn && (
               <Grid item>
-                <DropdownMenu
-                  button={
-                    <Avatar alt={currentUser.displayName} src={currentUser.photoURL} className={classes.avatar}>
-                      {!currentUser.photoURL ? currentUser.displayName[0] : null}
-                    </Avatar>
-                  }
-                >
+                <DropdownMenu button={<UserAvatar currentUser={currentUser} />}>
                   <Typography variant="subtitle1">Signed in as</Typography>
                   <Typography className={classes.userName} variant="subtitle1">
                     {currentUser.displayName}

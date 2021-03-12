@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback } from "react";
 import Cropper from "react-easy-crop";
 import Dropzone from "../Dropzone";
 
@@ -70,7 +70,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ImgEditor = ({ open, setOpen }) => {
+const ImgEditor = ({ open, setOpen, isAvatar, setAvatar }) => {
   const classes = useStyles();
   const [imageSrc, setImageSrc] = useState(null);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
@@ -115,6 +115,7 @@ const ImgEditor = ({ open, setOpen }) => {
         <React.Fragment>
           <div className={classes.cropContainer}>
             <Cropper
+              cropShape={isAvatar ? "round" : "rect"}
               image={imageSrc}
               crop={crop}
               zoom={zoom}
@@ -125,7 +126,7 @@ const ImgEditor = ({ open, setOpen }) => {
             />
           </div>
           {upload ? (
-            <ProgressBar file={file} setFile={setFile} setOpen={setOpen} onClose={onClose} />
+            <ProgressBar file={file} setFile={setFile} setOpen={setOpen} onClose={onClose} isAvatar={isAvatar} setAvatar={setAvatar} />
           ) : (
             <div className={classes.controls}>
               <div className={classes.sliderContainer}>

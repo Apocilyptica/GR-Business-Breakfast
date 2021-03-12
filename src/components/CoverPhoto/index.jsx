@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 // Redux
-import { sendFile, setFile } from "../../redux/UserData/userdata.actions";
+import { updateUserData } from "../../redux/UserData/userdata.actions";
 
 // Material-ui
 import Grid from "@material-ui/core/grid";
@@ -10,6 +10,7 @@ import Typography from "@material-ui/core/Typography";
 import MenuItem from "@material-ui/core/MenuItem";
 import Paper from "@material-ui/core/Paper";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import Divider from "@material-ui/core/Divider";
 
 // Material-ui Styles
 import { makeStyles } from "@material-ui/core/styles";
@@ -22,7 +23,7 @@ import CustomDialog from "../CustomDialog";
 
 // Font Awesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUpload, faCamera } from "@fortawesome/free-solid-svg-icons";
+import { faUpload, faCamera, faImage, faUserCircle } from "@fortawesome/free-solid-svg-icons";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -78,21 +79,14 @@ const CoverPhoto = (props) => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-  const [selectImage, setSelectImage] = useState(null);
+  const [avatar, setAvatar] = useState(null);
   const [openSelectImage, setOpenSelectImage] = useState(false);
 
-  const handleLoaderSave = (file) => {
-    if (!props.currentUser) return;
-    const photo = file[0];
-
-    dispatch(setFile(photo));
-    dispatch(sendFile());
-    setOpen(false);
-  };
-
-  const handleSetProfileImage = () => {
-    return;
-  };
+  useEffect(() => {
+    if (avatar) {
+      dispatch(updateUserData("avatar", avatar));
+    }
+  }, [avatar, dispatch]);
 
   const handleLoaderOpen = () => {
     setOpen(true);
@@ -104,6 +98,10 @@ const CoverPhoto = (props) => {
 
   const handleSelectImageOpen = () => {
     setOpenSelectImage(true);
+  };
+
+  const handleAvatarImageOpen = () => {
+    setOpen(true);
   };
 
   return (
@@ -146,14 +144,21 @@ const CoverPhoto = (props) => {
             </MenuItem>
             <MenuItem onClick={handleSelectImageOpen}>
               <Typography className={classes.editPhotoIcon}>
-                <FontAwesomeIcon icon={faUpload} />
+                <FontAwesomeIcon icon={faImage} />
               </Typography>
               <Typography variant="subtitle1">Set Profile Image</Typography>
+            </MenuItem>
+            <Divider />
+            <MenuItem onClick={handleAvatarImageOpen}>
+              <Typography className={classes.editPhotoIcon}>
+                <FontAwesomeIcon icon={faUserCircle} />
+              </Typography>
+              <Typography variant="subtitle1">Set Avatar</Typography>
             </MenuItem>
           </DropdownMenu>
         </Grid>
       </Grid>
-      <ImgEditor open={open} setOpen={setOpen} />
+      <ImgEditor open={open} setOpen={setOpen} isAvatar={true} setAvatar={setAvatar} />
       <div>
         <CustomDialog open={openSelectImage} onClose={handleSelectImageClose} title="My Images">
           <UserPhotosSelect isSelectImage={true} buttonTitle="Set as Profile" dataType="profileImage" setOpenSelectImage={setOpenSelectImage} />

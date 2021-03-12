@@ -1,6 +1,7 @@
 import React, { cloneElement } from "react";
 import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 // Material-ui
 import AppBar from "@material-ui/core/AppBar";
@@ -14,7 +15,6 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { useScrollTrigger } from "@material-ui/core";
-import Avatar from "@material-ui/core/Avatar";
 
 // Material-ui Icons
 import MenuIcon from "@material-ui/icons/Menu";
@@ -26,7 +26,7 @@ import GroupAddIcon from "@material-ui/icons/GroupAdd";
 // Components
 import TopNav from "../../components/navbars/TopNav";
 import BottomNav from "../../components/navbars/BottomNav";
-import { useSelector } from "react-redux";
+import UserAvatar from "../../components/UserAvatar";
 
 const drawerWidth = 240;
 
@@ -102,12 +102,12 @@ function AdminDashboardLayout(props) {
     setMobileOpen(!mobileOpen);
   };
 
+  console.log(currentUser);
+
   const drawer = (
     <div>
       <div className={classes.avatar}>
-        <Avatar alt={currentUser.displayName} src={currentUser.photoURL} className={classes.large}>
-          {!currentUser.photoURL ? currentUser.displayName[0] : null}
-        </Avatar>
+        <UserAvatar className={classes.large} currentUser={currentUser} styles={{ height: 150, width: 150 }} />
       </div>
       <Divider />
       <List>

@@ -1,5 +1,6 @@
 import React, { cloneElement } from "react";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
 // Material-ui
@@ -14,7 +15,6 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { useScrollTrigger } from "@material-ui/core";
-import Avatar from "@material-ui/core/Avatar";
 
 // Material-ui Icons
 import CameraIcon from "@material-ui/icons/Camera";
@@ -26,7 +26,7 @@ import SupervisorAccountIcon from "@material-ui/icons/SupervisorAccount";
 // Components
 import TopNav from "../../components/navbars/TopNav";
 import BottomNav from "../../components/navbars/BottomNav";
-import { useSelector } from "react-redux";
+import UserAvatar from "../../components/UserAvatar";
 
 const drawerWidth = 240;
 
@@ -105,9 +105,7 @@ function UserProfileLayout(props) {
   const drawer = (
     <div>
       <div className={classes.avatar}>
-        <Avatar alt={currentUser.displayName} src={currentUser.photoURL} className={classes.large}>
-          {!currentUser.photoURL ? currentUser.displayName[0] : null}
-        </Avatar>
+        <UserAvatar className={classes.large} currentUser={currentUser} styles={{ height: 150, width: 150 }} />
       </div>
       <Divider />
       <List>

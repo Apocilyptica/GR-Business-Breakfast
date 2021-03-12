@@ -1,8 +1,8 @@
 import userdataTypes from "./userdata.types";
-import { call, all, put, takeEvery, select, takeLatest } from "redux-saga/effects";
+import { call, all, put, takeLatest } from "redux-saga/effects";
 
-import { getCurrentUser, getCurrentUserRef, handleUserProfile, rsf } from "../../firebase/utils";
-import { setFileURL, setFileUpload } from "./userdata.actions";
+import { getCurrentUser, getCurrentUserRef, /*handleUserProfile,*/ rsf } from "../../firebase/utils";
+// import { setFileURL, setFileUpload } from "./userdata.actions";
 import { updateUserProfile } from "../User/user.actions";
 
 export function* startStorageDelete({ uuid, id }) {
@@ -90,63 +90,63 @@ export function* onSendSocialLinks() {
   yield takeLatest(userdataTypes.SEND_SOCIAL_LINKS, sendSocialLinks);
 }
 
-export function* getSnapshotFromUserAuth(user) {
-  try {
-    const userRef = yield call(handleUserProfile, { userAuth: user });
-    const snapshot = yield userRef.get();
-    const userID = snapshot.id;
-    const filePath = "users/" + userID + "/profile.jpg";
-    const url = yield call(rsf.storage.getDownloadURL, filePath);
-    yield call(rsf.firestore.updateDocument, `users/${userID}`, {
-      photoURL: url,
-    });
+// export function* getSnapshotFromUserAuth(user) {
+//   try {
+//     const userRef = yield call(handleUserProfile, { userAuth: user });
+//     const snapshot = yield userRef.get();
+//     const userID = snapshot.id;
+//     const filePath = "users/" + userID + "/profile.jpg";
+//     const url = yield call(rsf.storage.getDownloadURL, filePath);
+//     yield call(rsf.firestore.updateDocument, `users/${userID}`, {
+//       photoURL: url,
+//     });
 
-    yield put(updateUserProfile({ profilePhotoURL: url }));
-    yield put(setFileURL(url));
-  } catch (err) {
-    // console.log(err);
-  }
-}
+//     yield put(updateUserProfile({ profilePhotoURL: url }));
+//     yield put(setFileURL(url));
+//   } catch (err) {
+//     // console.log(err);
+//   }
+// }
 
-export function* syncFileUrl() {
-  try {
-    const userAuth = yield getCurrentUser();
-    if (!userAuth) return;
-    yield getSnapshotFromUserAuth(userAuth);
-  } catch (error) {
-    console.error(error);
-  }
-}
+// export function* syncFileUrl() {
+//   try {
+//     const userAuth = yield getCurrentUser();
+//     if (!userAuth) return;
+//     yield getSnapshotFromUserAuth(userAuth);
+//   } catch (error) {
+//     console.error(error);
+//   }
+// }
 
-export function* sendFileSaga(action) {
-  try {
-    const userAuth = yield getCurrentUser();
-    if (!userAuth) return;
-    const userID = yield select((state) => state.user.currentUser.id);
-    const filePath = "users/" + userID + "/profile.jpg";
-    const file = yield select((state) => state.userdata.file);
-    const task = rsf.storage.uploadFile(filePath, file);
-    task.on("state_changed", (snapshot) => {
-      const pct = (snapshot.bytesTransferred * 100) / snapshot.totalBytes;
-      console.log(`${pct}%`);
-      setFileUpload(pct);
-    });
+// export function* sendFileSaga(action) {
+//   try {
+//     const userAuth = yield getCurrentUser();
+//     if (!userAuth) return;
+//     const userID = yield select((state) => state.user.currentUser.id);
+//     const filePath = "users/" + userID + "/profile.jpg";
+//     const file = yield select((state) => state.userdata.file);
+//     const task = rsf.storage.uploadFile(filePath, file);
+//     task.on("state_changed", (snapshot) => {
+//       const pct = (snapshot.bytesTransferred * 100) / snapshot.totalBytes;
+//       console.log(`${pct}%`);
+//       setFileUpload(pct);
+//     });
 
-    // Wait for upload to complete
-    yield task;
+//     // Wait for upload to complete
+//     yield task;
 
-    yield call(syncFileUrl);
-  } catch (error) {
-    console.log(error);
-  }
-}
+//     yield call(syncFileUrl);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
 
-export function* rootSaga() {
-  yield all([takeEvery(userdataTypes.SEND_FILE, sendFileSaga)]);
+// export function* rootSaga() {
+//   yield all([takeEvery(userdataTypes.SEND_FILE, sendFileSaga)]);
 
-  yield call(syncFileUrl);
-}
+//   yield call(syncFileUrl);
+// }
 
 export default function* userSagas() {
-  yield all([call(rootSaga), call(onSetBioStart), call(onSendSocialLinks), call(onStartStorageDelete), call(onUpdateUserData)]);
+  yield all([call(onSetBioStart), call(onSendSocialLinks), call(onStartStorageDelete), call(onUpdateUserData)]);
 }

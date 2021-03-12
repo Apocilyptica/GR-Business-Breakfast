@@ -14,16 +14,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ProgressBar = ({ file, setOpen, onClose }) => {
+const ProgressBar = ({ file, setOpen, onClose, isAvatar, setAvatar }) => {
   const classes = useStyles();
   const { url, progress } = useStorageAdd(file);
 
   useEffect(() => {
+    if (url && isAvatar) {
+      setAvatar(url);
+    }
     if (url) {
       setOpen(false);
       onClose();
     }
-  }, [url, setOpen, onClose]);
+  }, [url, setOpen, onClose, isAvatar, setAvatar]);
 
   return (
     <div className={classes.root}>
