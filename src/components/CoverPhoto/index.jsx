@@ -80,6 +80,7 @@ const CoverPhoto = (props) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [avatar, setAvatar] = useState(null);
+  const [isAvatar, setIsAvatar] = useState(false);
   const [openSelectImage, setOpenSelectImage] = useState(false);
 
   useEffect(() => {
@@ -101,6 +102,7 @@ const CoverPhoto = (props) => {
   };
 
   const handleAvatarImageOpen = () => {
+    setIsAvatar(true);
     setOpen(true);
   };
 
@@ -158,7 +160,7 @@ const CoverPhoto = (props) => {
           </DropdownMenu>
         </Grid>
       </Grid>
-      <ImgEditor open={open} setOpen={setOpen} isAvatar={true} setAvatar={setAvatar} />
+      <ImgEditor open={open} setOpen={setOpen} isAvatar={isAvatar} setAvatar={setAvatar} setIsAvatar={setIsAvatar} />
       <div>
         <CustomDialog open={openSelectImage} onClose={handleSelectImageClose} title="My Images">
           <UserPhotosSelect isSelectImage={true} buttonTitle="Set as Profile" dataType="profileImage" setOpenSelectImage={setOpenSelectImage} />

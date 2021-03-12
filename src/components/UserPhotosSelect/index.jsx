@@ -10,7 +10,6 @@ import Button from "@material-ui/core/button";
 // Components
 import UploadForm from "../UploadForm";
 import UserImages from "../UserImages";
-import CustomDialog from "../CustomDialog";
 import TransitionsModal from "../Modal";
 
 // material-ui Styles
@@ -53,7 +52,6 @@ const UserPhotosSelect = ({ dataType, setOpenSelectImage, isSelectImage, buttonT
 
   return (
     <div>
-      <UploadForm />
       <UserImages setSelectedImage={setSelectedImage} isSelectImage={isSelectImage} />
       {selectedImage && (
         <TransitionsModal open={open} onClose={onClose}>

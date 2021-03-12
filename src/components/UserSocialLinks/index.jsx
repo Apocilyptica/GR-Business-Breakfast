@@ -135,7 +135,7 @@ const UserSocialLinks = (props) => {
           );
         })}
         <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
-          Submit Changes
+          Submit Social Link Changes
         </Button>
       </form>
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>

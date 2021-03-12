@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 // Actions
 import { setUserRole, startDeleteUser } from "../../redux/Admin/admin.actions";

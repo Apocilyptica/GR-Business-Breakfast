@@ -16,18 +16,9 @@ const useStyles = makeStyles((theme) => ({
   input: {
     color: theme.palette.common.white,
   },
-  fab: {
-    position: "fixed",
-    bottom: theme.spacing(2),
-    left: theme.spacing(2),
-    [theme.breakpoints.up("sm")]: {
-      left: theme.spacing(32),
-    },
-    zIndex: 2,
-  },
 }));
 
-const UploadForm = () => {
+const ImageUploadButton = () => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
 
@@ -37,7 +28,7 @@ const UploadForm = () => {
 
   return (
     <div>
-      <Fab color="primary" aria-label="add" className={classes.fab} onClick={handleClick} variant="extended">
+      <Fab color="primary" aria-label="add" onClick={handleClick} variant="extended">
         <AddIcon className={classes.input} />
         Add New Image
       </Fab>
@@ -46,4 +37,4 @@ const UploadForm = () => {
   );
 };
 
-export default UploadForm;
+export default ImageUploadButton;

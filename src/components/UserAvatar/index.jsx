@@ -15,8 +15,6 @@ const useStyles = makeStyles((theme) => ({
 const UserAvatar = ({ currentUser, styles }) => {
   const classes = useStyles();
 
-  console.log(styles);
-
   return (
     <Avatar alt={currentUser.displayName} src={currentUser.avatar} className={classes.avatar} style={styles}>
       {!currentUser.avatar ? currentUser.displayName[0] : null}

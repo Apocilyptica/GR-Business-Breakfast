@@ -70,7 +70,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ImgEditor = ({ open, setOpen, isAvatar, setAvatar }) => {
+const ImgEditor = ({ open, setOpen, isAvatar, setAvatar, setIsAvatar }) => {
   const classes = useStyles();
   const [imageSrc, setImageSrc] = useState(null);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
@@ -102,7 +102,10 @@ const ImgEditor = ({ open, setOpen, isAvatar, setAvatar }) => {
     setFile(null);
     setUpload(false);
     setFileName(null);
-  }, [setOpen]);
+    if (isAvatar) {
+      setIsAvatar(false);
+    }
+  }, [setOpen, setIsAvatar, isAvatar]);
 
   const handleUpload = () => {
     handleCroppedImage();

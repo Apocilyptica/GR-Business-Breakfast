@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { storage, firestore, timestamp, uid } from "../firebase/utils";
+import { storage, firestore, timestamp } from "../firebase/utils";
 import { v4 as uuidv4 } from "uuid";
 
 const mapState = ({ user }) => ({
@@ -16,7 +16,6 @@ const useStorageAdd = (file) => {
   useEffect(() => {
     // references
     const uuid = uuidv4();
-    const fileName = file.name;
     const filePath = "users/" + userId + "/" + uuid;
     const storageRef = storage.ref(filePath);
     const collectionRef = firestore.collection(`users/${userId}/images`);
@@ -33,7 +32,7 @@ const useStorageAdd = (file) => {
       async () => {
         const url = await storageRef.getDownloadURL();
         const createdAt = timestamp();
-        collectionRef.add({ fileName, url, createdAt, uuid });
+        collectionRef.add({ url, createdAt, uuid });
         setUrl(url);
       }
     );

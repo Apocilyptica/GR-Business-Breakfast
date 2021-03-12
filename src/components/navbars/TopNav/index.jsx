@@ -15,7 +15,6 @@ import Collapse from "@material-ui/core/Collapse";
 import Hidden from "@material-ui/core/Hidden";
 import withWidth from "@material-ui/core/withWidth";
 import Grid from "@material-ui/core/Grid";
-import Avatar from "@material-ui/core/Avatar";
 import MenuItem from "@material-ui/core/MenuItem";
 import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
