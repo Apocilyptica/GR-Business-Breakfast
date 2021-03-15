@@ -9,7 +9,6 @@ import Grid from "@material-ui/core/grid";
 import Typography from "@material-ui/core/Typography";
 import MenuItem from "@material-ui/core/MenuItem";
 import Paper from "@material-ui/core/Paper";
-import CircularProgress from "@material-ui/core/CircularProgress";
 import Divider from "@material-ui/core/Divider";
 
 // Material-ui Styles
@@ -119,12 +118,6 @@ const CoverPhoto = (props) => {
               </Typography>
             </Paper>
           )}
-
-          {props.loading ? (
-            <Paper className={classes.loader} square>
-              <CircularProgress size={60} thickness={5} color="secondary" />
-            </Paper>
-          ) : null}
 
           <DropdownMenu
             button={

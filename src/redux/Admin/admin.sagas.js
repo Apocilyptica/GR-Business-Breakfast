@@ -57,7 +57,6 @@ export function* onStartSetUserRole() {
 export function* deleteUser(payload) {
   const users = payload.payload;
 
-  console.log(users);
   try {
     yield all(
       users.map((user) => {

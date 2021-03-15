@@ -46,6 +46,7 @@ import UserAccount from "./pages/UserAccount";
 import AdminDashboard from "./pages/AdminDashboard";
 import UserRole from "./pages/UserRole";
 import UserProfile from "./pages/UserProfile";
+import NoMatch from "./pages/NoMatch";
 
 // Default SCSS
 import "./default.scss";
@@ -282,6 +283,7 @@ function App(props) {
               </WithAdminAuth>
             )}
           />
+          <Route component={NoMatch} />
         </Switch>
         <ScrollTop {...props}>
           <Fab className={classes.fab} color="secondary" size="small" aria-label="scroll back to top">

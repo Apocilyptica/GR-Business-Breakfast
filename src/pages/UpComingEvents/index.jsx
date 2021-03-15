@@ -1,7 +1,10 @@
 import React from "react";
 
+// Components
+import EventGrid from "../../components/EventGrid";
+
 const UpComingEvents = () => {
-  return <div>Up Coming Events</div>;
+  return <EventGrid />;
 };
 
 export default UpComingEvents;

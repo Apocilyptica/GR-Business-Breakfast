@@ -44,7 +44,6 @@ const UserPhotos = () => {
   };
 
   const handleDelete = (data) => {
-    console.log(data.id);
     dispatch(storageDelete(data));
   };
 

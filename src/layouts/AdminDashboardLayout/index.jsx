@@ -102,8 +102,6 @@ function AdminDashboardLayout(props) {
     setMobileOpen(!mobileOpen);
   };
 
-  console.log(currentUser);
-
   const drawer = (
     <div>
       <div className={classes.avatar}>
