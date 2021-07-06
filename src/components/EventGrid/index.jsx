@@ -1,9 +1,12 @@
 import React from "react";
 
+// Components
+import EventCard from "../EventCard";
+
 const EventGrid = () => {
   return (
     <div>
-      <h1>Event Cards</h1>
+      <EventCard />
     </div>
   );
 };

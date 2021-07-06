@@ -8,7 +8,6 @@ import { updateUserData } from "../../redux/UserData/userdata.actions";
 import Button from "@material-ui/core/button";
 
 // Components
-import UploadForm from "../UploadForm";
 import UserImages from "../UserImages";
 import TransitionsModal from "../Modal";
 
